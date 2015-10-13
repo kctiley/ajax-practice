@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  if orders
+    for each in orders
+      p=each
+  h2 Coffee Orders
+  ul(id='listOfOrders')
+  h3 Add an order
+  p Name:
+    input(type='text', id='inputName')
+  p Drink:
+    input(type='text', id='inputDrink')
+  button(id='btnAdd') Add
