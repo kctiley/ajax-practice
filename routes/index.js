@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Ajax-Practice with CRUD' });
@@ -29,6 +30,18 @@ router.post('/orders', function(req, res) {
         );
     });
 });
+
+router.delete('/orders/delete/:_id', function(req, res){
+  console.log('id is .....' + req.params._id)
+  var db = req.db;
+  var collection = db.get('orders');
+  var orderToDelete = req.params._id;
+  collection.remove({_id: req.params._id}, function(err, result){
+    res.send(
+      (err === null) ? { msg: '' } : { msg: err }
+    );
+  })
+})
 
 
 

@@ -2,12 +2,8 @@ extends layout
 
 block content
   h1= title
-  if orders
-    div(id='ordersDiv' style='padding: 10px')
-      for each in orders
-        p(style='padding: 10px')=each
   h2 Coffee Orders
-  ul(id='listOfOrders')
+  ul(id='listOfOrders' style='background: gray; padding: 5px')
   h3 Add an order
   p Name:
     input(type='text', id='inputName')

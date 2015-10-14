@@ -1,4 +1,5 @@
 
+
 $(document).ready(function(){
 
   console.log('document loaded')
@@ -7,8 +8,11 @@ $(document).ready(function(){
   var $orders = $('#listOfOrders');
   var $inputName = $('#inputName');
   var $inputDrink = $('#inputDrink');
+
+
   var addOrder= function(input){
-    $orders.append('<div style=\'padding: 5px; border: 2px solid blue; width: 25%\'><ul> Name: ' + input.name  + '</ul><ul> Drink: ' + input.drink + '</ul></div>');
+    $orders.append('<div style=\' margin: 10px; border: 2px solid blue; background: white\'><ul style=\' padding: 1px\'><h4> Name: ' + input.name  + '</h3></ul><ul style=\'padding: 2px\'> Drink: ' + input.drink + '</ul><ul><button id=' + input._id + ' class=\'remove\'>Delete</button></div>');
+
   }
    
 
@@ -29,15 +33,12 @@ $(document).ready(function(){
   //Add order
   $('#btnAdd').on('click', function(){
 
-    console.log('btnAdd has been clicked')
-
     var order = {
       name: $inputName.val(),
       drink: $inputDrink.val()
     };
 
     $.ajax({
-
       type: 'POST',
       url: '/orders',
       data: order,
@@ -47,11 +48,41 @@ $(document).ready(function(){
       error: function(){
         alert('Error adding order')
       },        
-
     })
     
-
-
    })
 
+
+  //Delete order
+  $orders.delegate('.remove', 'click', function(){
+
+    console.log($(this).eq(0).attr('id'))
+
+    var buttonClicked = $(this)
+    debugger
+
+    var orderDeleteId = $(this).eq(0).attr('id')
+    debugger
+
+    var parentToRemove =  $(this).parent().parent()
+    debugger
+
+
+    $.ajax({
+
+      type: 'DELETE',
+      url: '/orders/delete/' + orderDeleteId,
+      success: function(){
+        parentToRemove.remove();
+      }
+    })
+  })
+
+
+
+
+
+
 })
+
+
